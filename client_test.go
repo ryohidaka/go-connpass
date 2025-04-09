@@ -1,10 +1,23 @@
 package connpass_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
 )
+
+func ExampleNewClient() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化して返す
+	c := connpass.NewClient(apiKey)
+
+	// 出力
+	fmt.Println(c.BaseURL)
+}
 
 func TestNewClient(t *testing.T) {
 	t.Run("Connpassクライアントが正しく初期化されること", func(t *testing.T) {
