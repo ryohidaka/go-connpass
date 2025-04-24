@@ -1,5 +1,6 @@
 # go-connpass
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/ryohidaka/go-connpass.svg)](https://pkg.go.dev/github.com/ryohidaka/go-connpass)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Go 用 connpass API v2 クライアント
