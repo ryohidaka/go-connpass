@@ -27,7 +27,7 @@ func ExampleConnpass_GetEvents() {
 	}
 
 	// イベント一覧を取得
-	events, err := c.GetEvents(query)
+	events, err := c.GetEvents(&query)
 	if err != nil {
 		fmt.Printf("イベント取得に失敗しました: %v", err)
 		return
@@ -102,7 +102,7 @@ func TestGetEvents(t *testing.T) {
 		c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 		// イベント取得
-		resp, err := c.GetEvents(dummyQuery)
+		resp, err := c.GetEvents(&dummyQuery)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -125,7 +125,7 @@ func TestGetEvents(t *testing.T) {
 			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// イベント取得
-			_, err := c.GetEvents(dummyQuery)
+			_, err := c.GetEvents(&dummyQuery)
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -146,7 +146,7 @@ func TestGetEvents(t *testing.T) {
 			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// イベント取得
-			_, err := c.GetEvents(dummyQuery)
+			_, err := c.GetEvents(&dummyQuery)
 
 			// エラーチェック
 			assert.Error(t, err)
