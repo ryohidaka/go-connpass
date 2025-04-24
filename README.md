@@ -20,11 +20,7 @@ go get github.com/ryohidaka/go-connpass
 > API キーの発行には[ヘルプページ](https://help.connpass.com/api/)での利用申請が必要です。
 
 ```go
-
-import (
-
-	"github.com/ryohidaka/go-connpass"
-)
+import "github.com/ryohidaka/go-connpass"
 
 
 func main() {
