@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/ryohidaka/go-connpass/compare/v0.1.0...v0.1.1) (2025-04-24)
+
+
+### Bug Fixes
+
+* **api:** イベント検索用のクエリパラメータをオプショナルに修正 ([1a7821c](https://github.com/ryohidaka/go-connpass/commit/1a7821c3e17ddd53520d61055eab02fcd80b917d))
+
 ## 0.1.0 (2025-04-24)
 
 
