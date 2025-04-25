@@ -23,7 +23,7 @@ func ExampleConnpass_GetEvents() {
 
 	// イベント取得パラメータを指定
 	query := models.GetEventsQuery{
-		EventID: 364,
+		EventID: []int{364},
 		BaseQuery: models.BaseQuery{
 			Start: 1,
 			Count: 10,

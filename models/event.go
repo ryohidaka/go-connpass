@@ -16,7 +16,7 @@ type GetEventsQuery struct {
 	NicnameOr     string     `url:"nickname_or,omitempty"`    // OR条件のニックネーム
 	OwnerNickname string     `url:"owner_nickname,omitempty"` // 管理者のニックネーム
 	SeriesID      int        `url:"series_id,omitempty"`      // グループのシリーズID
-	EventID       int        `url:"event_id,omitempty"`       // イベントID（1件のみ）
+	EventID       []int      `url:"event_id,omitempty"`       // イベントID（複数指定可）
 	Format        string     `url:"format,omitempty"`         // レスポンス形式（デフォルト: json）
 	Order         EventOrder `url:"order,omitempty"`          // 表示順（1: 更新日時順, 2: 開催日時順）
 	EventType     EventType  `url:"event_type,omitempty"`     // イベント参加タイプ
