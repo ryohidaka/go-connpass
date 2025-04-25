@@ -2,14 +2,52 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetUserAttendedEvents() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	nickname := "haru860"
+
+	// ユーザー参加イベント取得パラメータを指定
+	query := models.GetUserAttendedEventsQuery{
+		Start: 1,
+		Count: 10,
+	}
+
+	// ユーザー参加イベント一覧を取得
+	events, err := c.GetUserAttendedEvents(nickname, &query)
+	if err != nil {
+		fmt.Printf("ユーザー参加イベント取得に失敗しました: %v\n", err)
+		return
+	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
+
+	// 各イベントのイベントIDとイベント名を出力
+	if len(events.Events) > 0 {
+		fmt.Printf("イベントID: %d, イベント名: %s\n", events.Events[0].ID, events.Events[0].Title)
+	}
+
+	// Output:
+	//　イベントID: 5, イベント名: 世界のやまちゃんで手羽先を喰らう会
+}
 
 func TestGetUserAttendedEvents(t *testing.T) {
 	// ダミーを生成
