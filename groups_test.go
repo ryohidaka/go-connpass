@@ -2,14 +2,49 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetGroups() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	// グループ取得パラメータを指定
+	query := models.GetGroupsQuery{
+		Subdomain: []string{"bpstudy"},
+		BaseQuery: models.BaseQuery{
+			Start: 1,
+			Count: 10,
+		},
+	}
+
+	// グループ一覧を取得
+	groups, err := c.GetGroups(&query)
+	if err != nil {
+		fmt.Printf("グループ取得に失敗しました: %v", err)
+		return
+	}
+
+	// 出力
+	groupJSON, err := json.MarshalIndent(groups, "", "  ")
+	if err != nil {
+		fmt.Printf("JSONマーシャリングに失敗しました: %v", err)
+		return
+	}
+	fmt.Println(string(groupJSON))
+}
 
 func TestGetGroups(t *testing.T) {
 	// ダミーを生成
