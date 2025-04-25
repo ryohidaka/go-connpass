@@ -11,9 +11,9 @@ func GetAPIKey() string {
 	if err := godotenv.Load(); err != nil {
 		log.Println("Error loading .env file")
 	}
-	apiKey := os.Getenv("API_KEY")
+	apiKey := os.Getenv("CONNPASS_API_KEY")
 	if apiKey == "" {
-		log.Println("API_KEY is not set")
+		log.Println("CONNPASS_API_KEY is not set")
 	}
 	return apiKey
 }
