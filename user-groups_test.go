@@ -2,14 +2,52 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetUserGroups() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	nickname := "haru860"
+
+	// ユーザー所属グループ取得パラメータを指定
+	query := models.GetUserGroupsQuery{
+		Start: 1,
+		Count: 10,
+	}
+
+	// ユーザー所属グループ一覧を取得
+	groups, err := c.GetUserGroups(nickname, &query)
+	if err != nil {
+		fmt.Printf("ユーザー所属グループ取得に失敗しました: %v\n", err)
+		return
+	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
+
+	// 各グループのグループIDとグループ名を出力
+	if len(groups.Groups) > 0 {
+		fmt.Printf("グループID: %d, グループ名: %s\n", groups.Groups[0].ID, groups.Groups[0].Title)
+	}
+
+	// Output:
+	//　グループID: 1, グループ名: BPStudy
+}
 
 func TestGetUserGroups(t *testing.T) {
 	// ダミーを生成
