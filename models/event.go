@@ -6,21 +6,17 @@ import "time"
 type GetEventsQuery struct {
 	BaseQuery
 
-	Keyword       []string   `url:"keyword,omitempty"`        // AND検索キーワード（複数指定可）
-	KeywordOr     []string   `url:"keyword_or,omitempty"`     // OR検索キーワード（複数指定可）
-	Ymd           string     `url:"ymd,omitempty"`            // 開催日（例: 20250430）
-	Ym            []string   `url:"ym,omitempty"`             // 開催年月（例: 202504）
-	YmStart       string     `url:"ym_start,omitempty"`       // 開始年月（例: 202504）
-	YmEnd         string     `url:"ym_end,omitempty"`         // 終了年月（例: 202505）
-	Nickname      string     `url:"nickname,omitempty"`       // 登録者のニックネーム
-	NicnameOr     string     `url:"nickname_or,omitempty"`    // OR条件のニックネーム
-	OwnerNickname string     `url:"owner_nickname,omitempty"` // 管理者のニックネーム
-	SeriesID      int        `url:"series_id,omitempty"`      // グループのシリーズID
-	EventID       []int      `url:"event_id,omitempty"`       // イベントID（複数指定可）
-	Format        string     `url:"format,omitempty"`         // レスポンス形式（デフォルト: json）
-	Order         EventOrder `url:"order,omitempty"`          // 表示順（1: 更新日時順, 2: 開催日時順）
-	EventType     EventType  `url:"event_type,omitempty"`     // イベント参加タイプ
-	OpenStatus    OpenStatus `url:"open_status,omitempty"`    // 開催状態
+	EventID       []int        `url:"event_id,omitempty"`       // イベントID（複数指定可）
+	Keyword       []string     `url:"keyword,omitempty"`        // キーワード(AND)（複数指定可）
+	KeywordOr     []string     `url:"keyword_or,omitempty"`     // キーワード(OR)（複数指定可）
+	Ym            []string     `url:"ym,omitempty"`             // イベント開催年月（例: 201204）
+	Ymd           []string     `url:"ymd,omitempty"`            // イベント開催年月日（例: 20120406）
+	Nickname      []string     `url:"nickname,omitempty"`       // 参加者のニックネーム
+	OwnerNickname []string     `url:"owner_nickname,omitempty"` // 管理者のニックネーム
+	GroupID       []int        `url:"group_id,omitempty"`       // グループID
+	Subdomain     []string     `url:"subdomain,omitempty"`      // サブドメイン
+	Prefecture    []Prefecture `url:"prefecture,omitempty"`     // 都道府県
+	Order         EventOrder   `url:"order,omitempty"`          // 表示順（1: 更新日時順, 2: 開催日時順, 3: 新着順）
 }
 
 // イベント一覧のレスポンス
