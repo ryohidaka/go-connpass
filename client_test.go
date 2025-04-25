@@ -21,6 +21,9 @@ func ExampleNewClient() {
 
 	// 出力
 	fmt.Println(c.BaseURL)
+
+	// Output:
+	// https://connpass.com/api/v2
 }
 
 func TestNewClient(t *testing.T) {
