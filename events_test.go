@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/internal/config"
 	"github.com/ryohidaka/go-connpass/models"
+	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -43,48 +43,9 @@ func ExampleConnpass_GetEvents() {
 }
 
 func TestGetEvents(t *testing.T) {
-	dummyQuery := models.GetEventsQuery{
-		Keyword: []string{"Go"},
-	}
-
-	dummyResponse := &models.GetEventsResponse{
-		BaseResponse: models.BaseResponse{
-			ResultsStart:     1,
-			ResultsReturned:  1,
-			ResultsAvailable: 1,
-		},
-		Events: []models.ConnpassEvent{
-			{
-				ID:          1,
-				Title:       "Event 1",
-				Catch:       "Catch 1",
-				Description: "Description 1",
-				URL:         "https://example.com/event/1",
-				HashTag:     "tag1",
-				StartedAt:   time.Date(2025, 4, 25, 18, 0, 0, 0, time.UTC),
-				EndedAt:     time.Date(2025, 4, 25, 20, 0, 0, 0, time.UTC),
-				Limit:       100,
-				EventType:   models.Advertisement,
-				OpenStatus:  models.Open,
-				Group: models.Group{
-					ID:        1,
-					Subdomain: "",
-					Title:     "Series 1",
-					URL:       "https://example.com/series/1",
-				},
-				Address:          "Tokyo",
-				Place:            "Somewhere",
-				Lat:              "35.6895",
-				Lon:              "139.6917",
-				OwnerID:          123,
-				OwnerNickname:    "owner1",
-				OwnerDisplayName: "Owner One",
-				Accepted:         50,
-				Waiting:          0,
-				UpdatedAt:        time.Date(2025, 4, 20, 12, 30, 0, 0, time.UTC),
-			},
-		},
-	}
+	// ダミーを生成
+	dummyQuery := testutil.DummyGetEventsQuery()
+	dummyResponse := testutil.DummyGetEventsResponse()
 
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
