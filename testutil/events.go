@@ -9,7 +9,11 @@ import (
 // イベント一覧取得テスト用のダミークエリを返却する
 func DummyGetEventsQuery() models.GetEventsQuery {
 	return models.GetEventsQuery{
-		Keyword: []string{"Go"},
+		EventID: 364,
+		BaseQuery: models.BaseQuery{
+			Start: 1,
+			Count: 10,
+		},
 	}
 }
 
