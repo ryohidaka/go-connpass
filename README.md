@@ -47,6 +47,9 @@ func main() {
 
     // ユーザー参加イベント一覧を取得
     userAttendedEvents, _ := c.GetUserAttendedEvents("haru860")
+
+    // ユーザー発表イベント一覧を取得
+    userPresenterEvents, _ := c.GetUserPresenterEvents("haru860")
 }
 ```
 
