@@ -38,10 +38,10 @@ func NewClient(apiKey string) *Connpass {
 //
 // パラメータ:
 //   - endpoint: API の相対パス (例: "events")
-//   - query: クエリパラメータのマップ (キーに対して複数の値を指定可能)
+//   - queryStruct: クエリパラメータの構造体（ポインタも可）
+//   - out: レスポンスの出力先（ポインタ）
 //
 // 戻り値:
-//   - レスポンスをデコードした型 T の値
 //   - エラーが発生した場合は error を返す
 func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 	reqURL, err := url.Parse(fmt.Sprintf("%s/%s", c.BaseURL, endpoint))
@@ -49,13 +49,19 @@ func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 		return fmt.Errorf("URLのパースに失敗しました: %w", err)
 	}
 
-	// クエリを構造体で受け取った場合のみエンコード
-	if queryStruct != nil && reflect.TypeOf(queryStruct).Kind() == reflect.Struct {
-		values, err := query.Values(queryStruct)
-		if err != nil {
-			return fmt.Errorf("クエリのエンコードに失敗しました: %w", err)
+	// クエリ構造体が指定されている場合、URL パラメータとしてエンコード
+	if queryStruct != nil {
+		v := reflect.ValueOf(queryStruct)
+		if v.Kind() == reflect.Ptr {
+			v = v.Elem()
 		}
-		reqURL.RawQuery = values.Encode()
+		if v.Kind() == reflect.Struct {
+			values, err := query.Values(v.Interface())
+			if err != nil {
+				return fmt.Errorf("クエリのエンコードに失敗しました: %w", err)
+			}
+			reqURL.RawQuery = values.Encode()
+		}
 	}
 
 	req, err := http.NewRequest("GET", reqURL.String(), nil)
