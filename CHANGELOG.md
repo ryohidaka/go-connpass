@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/ryohidaka/go-connpass/compare/v0.2.0...v0.3.0) (2025-04-25)
+
+
+### Features
+
+* **api:** イベント資料一覧取得を追加 ([e133e3e](https://github.com/ryohidaka/go-connpass/commit/e133e3e95dcf0389bcb96d69aa189b4e7104ffe7))
+* **types:** イベント資料一覧の型定義を追加 ([6d506d7](https://github.com/ryohidaka/go-connpass/commit/6d506d7e3e798f46d98173a831bd81730d3a61b6))
+
 ## [0.2.0](https://github.com/ryohidaka/go-connpass/compare/v0.1.1...v0.2.0) (2025-04-25)
 
 
