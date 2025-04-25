@@ -31,7 +31,10 @@ func main() {
     c := connpass.NewClient(apiKey)
 
     // イベント一覧を取得
-	events, _ := c.GetEvents(query)
+	events, _ := c.GetEvents()
+
+    // イベント資料一覧を取得
+    presentations, _ := c.GetEventPresentations(364)
 }
 ```
 
