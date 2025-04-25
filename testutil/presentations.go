@@ -24,13 +24,13 @@ func DummyGetEventPresentationsResponse() *models.GetEventPresentationsResponse 
 		},
 		Presentations: []models.Presentation{
 			{
-				User: &models.User{
+				User: &models.PresentationUser{
 					ID:       8,
 					Nickname: "haru860",
 				},
 				URL:  "https://togetter.com/li/294875",
 				Name: "Togetterまとめ",
-				Presenter: &models.User{
+				Presenter: &models.PresentationUser{
 					ID:       8,
 					Nickname: "haru860",
 				},

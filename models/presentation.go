@@ -14,12 +14,12 @@ type GetEventPresentationsResponse struct {
 
 // 資料
 type Presentation struct {
-	User             *User            `json:"user,omitempty"`              // 投稿者（資料を投稿したユーザー）
-	URL              string           `json:"url,omitempty"`               // 資料URL
-	Name             string           `json:"name,omitempty"`              // 資料タイトル
-	Presenter        *User            `json:"presenter,omitempty"`         // 資料を発表したユーザー
-	PresentationType PresentationType `json:"presentation_type,omitempty"` // 資料タイプ
-	CreatedAt        time.Time        `json:"created_at,omitempty"`        // 投稿日時 (ISO-8601形式)
+	User             *PresentationUser `json:"user,omitempty"`              // 投稿者（資料を投稿したユーザー）
+	URL              string            `json:"url,omitempty"`               // 資料URL
+	Name             string            `json:"name,omitempty"`              // 資料タイトル
+	Presenter        *PresentationUser `json:"presenter,omitempty"`         // 資料を発表したユーザー
+	PresentationType PresentationType  `json:"presentation_type,omitempty"` // 資料タイプ
+	CreatedAt        time.Time         `json:"created_at,omitempty"`        // 投稿日時 (ISO-8601形式)
 }
 
 // 資料タイプ
@@ -31,8 +31,8 @@ const (
 	PresentationTypeBlog  PresentationType = "blog"  // ブログなど
 )
 
-// 投稿者
-type User struct {
+// ユーザー
+type PresentationUser struct {
 	ID       int    `json:"id,omitempty"`       // ユーザーID
 	Nickname string `json:"nickname,omitempty"` // ニックネーム
 }
