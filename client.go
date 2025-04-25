@@ -13,10 +13,9 @@ import (
 
 // Connpass クライアント構造体
 type Connpass struct {
-	APIKey     string
-	Client     *http.Client
-	APIVersion string
-	BaseURL    string
+	APIKey  string
+	Client  *http.Client
+	BaseURL string
 }
 
 // 指定された API キーで Connpass クライアントを生成する。
@@ -28,10 +27,9 @@ type Connpass struct {
 //	c := NewClient("YOUR_API_KEY")
 func NewClient(apiKey string) *Connpass {
 	return &Connpass{
-		APIKey:     apiKey,
-		Client:     &http.Client{Timeout: 10 * time.Second},
-		APIVersion: APIVersion,
-		BaseURL:    fmt.Sprintf("%s/%s", BaseURL, APIVersion),
+		APIKey:  apiKey,
+		Client:  &http.Client{Timeout: 10 * time.Second},
+		BaseURL: "https://connpass.com/api/v2",
 	}
 }
 

@@ -40,10 +40,6 @@ func TestNewClient(t *testing.T) {
 			t.Error("http.Client が初期化されていません")
 		}
 
-		if c.APIVersion != "v2" {
-			t.Errorf("APIVersion = %s; want v2", c.APIVersion)
-		}
-
 		if c.BaseURL == "" {
 			t.Error("BaseURL が空です")
 		}
@@ -78,10 +74,9 @@ func TestRequest_Success(t *testing.T) {
 		}
 
 		c := &connpass.Connpass{
-			APIKey:     "dummy",
-			Client:     mockClient,
-			BaseURL:    "https://connpass.com/api",
-			APIVersion: "v2",
+			APIKey:  "dummy",
+			Client:  mockClient,
+			BaseURL: "https://connpass.com/api/v2",
 		}
 
 		// モックレスポンス用の構造体
