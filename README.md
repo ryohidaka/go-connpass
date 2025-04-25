@@ -44,6 +44,9 @@ func main() {
 
     // ユーザー所属グループ一覧を取得
     userGroups, _ := c.GetUserGroups("haru860")
+
+    // ユーザー参加イベント一覧を取得
+    userAttendedEvents, _ := c.GetUserAttendedEvents("haru860")
 }
 ```
 
