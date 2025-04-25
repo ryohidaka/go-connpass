@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/ryohidaka/go-connpass/compare/v0.5.0...v0.6.0) (2025-04-25)
+
+
+### Features
+
+* **api:** ユーザー所属グループ一覧取得を追加 ([585ee90](https://github.com/ryohidaka/go-connpass/commit/585ee90acf1f11fe014a0a7223e046a4949dc6a9))
+* **types:** ユーザー所属グループ一覧の型定義を追加 ([7544fad](https://github.com/ryohidaka/go-connpass/commit/7544fad4e1a3c49683f77241bfdb51ffde227893))
+
 ## [0.5.0](https://github.com/ryohidaka/go-connpass/compare/v0.4.2...v0.5.0) (2025-04-25)
 
 
