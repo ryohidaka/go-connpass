@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/ryohidaka/go-connpass/compare/v0.6.0...v0.7.0) (2025-04-25)
+
+
+### Features
+
+* **api:** ユーザー参加イベント一覧取得を追加 ([7b27e7b](https://github.com/ryohidaka/go-connpass/commit/7b27e7b8cffc7268886c532e8aa46615e70854f2))
+* **types:** ユーザー参加イベント一覧の型定義を追加 ([0143816](https://github.com/ryohidaka/go-connpass/commit/0143816463ce21fecfef1223dbbcb0c9ff1eb0b8))
+
 ## [0.6.0](https://github.com/ryohidaka/go-connpass/compare/v0.5.0...v0.6.0) (2025-04-25)
 
 
