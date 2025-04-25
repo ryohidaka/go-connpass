@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/internal/config"
@@ -36,6 +37,9 @@ func ExampleConnpass_GetGroups() {
 		fmt.Printf("グループ取得に失敗しました: %v\n", err)
 		return
 	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
 
 	// 各グループのグループIDとグループ名を出力
 	for _, group := range groups.Groups {

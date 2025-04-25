@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/internal/config"
@@ -35,6 +36,9 @@ func ExampleConnpass_GetEventPresentations() {
 		fmt.Printf("イベント資料取得に失敗しました: %v\n", err)
 		return
 	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
 
 	// 各資料のタイトルのみを出力
 	for _, presentation := range presentations.Presentations {
