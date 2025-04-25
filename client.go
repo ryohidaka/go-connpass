@@ -29,7 +29,7 @@ func NewClient(apiKey string) *Connpass {
 	return &Connpass{
 		APIKey:  apiKey,
 		Client:  &http.Client{Timeout: 10 * time.Second},
-		BaseURL: "https://connpass.com/api/v2",
+		BaseURL: BaseURL,
 	}
 }
 
