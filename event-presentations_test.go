@@ -2,14 +2,48 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetEventPresentations() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	eventId := 364
+
+	// イベント取得パラメータを指定
+	query := models.GetEventPresentationsQuery{
+		Start: 1,
+		Count: 10,
+	}
+
+	// イベント資料一覧を取得
+	presentations, err := c.GetEventPresentations(eventId, &query)
+	if err != nil {
+		fmt.Printf("イベント資料取得に失敗しました: %v", err)
+		return
+	}
+
+	// 出力
+	presentationJSON, err := json.MarshalIndent(presentations, "", "  ")
+	if err != nil {
+		fmt.Printf("JSONマーシャリングに失敗しました: %v", err)
+		return
+	}
+	fmt.Println(string(presentationJSON))
+}
 
 func TestGetEventPresentations(t *testing.T) {
 	// ダミーを生成
