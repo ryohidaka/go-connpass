@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/ryohidaka/go-connpass/compare/v0.4.1...v0.4.2) (2025-04-25)
+
+
+### Bug Fixes
+
+* **types:** イベント一覧のパラメータを修正 ([d8ad6b6](https://github.com/ryohidaka/go-connpass/commit/d8ad6b66ae941c35938c6f0c1c3f953a254adbf6))
+
 ## [0.4.1](https://github.com/ryohidaka/go-connpass/compare/v0.4.0...v0.4.1) (2025-04-25)
 
 
