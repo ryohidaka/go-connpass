@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.1](https://github.com/ryohidaka/go-connpass/compare/v0.4.0...v0.4.1) (2025-04-25)
+
+
+### Bug Fixes
+
+* **api:** クエリパラメータがポインタの場合に適用されない不具合を修正 ([2bd24fb](https://github.com/ryohidaka/go-connpass/commit/2bd24fb17f679231d3dad5fda1ce50a9f6836997))
+* **types:** イベントIDのJSONのキー名を修正 ([e9dd109](https://github.com/ryohidaka/go-connpass/commit/e9dd109be5d2bc326d986e79d56ba73a4f3f9b67))
+* **types:** イベント一覧取得時に指定するイベントIDが単一指定になっている不具合を修正 ([88aa31a](https://github.com/ryohidaka/go-connpass/commit/88aa31a5717b5f1f7c285bb5458fa469c1a6a4d6))
+* **types:** イベント情報の構造体にイベント画像URLが含まれていない不具合を修正 ([39ae285](https://github.com/ryohidaka/go-connpass/commit/39ae2859b78e912b95d9820690b2ab3df21a8bed))
+
 ## [0.4.0](https://github.com/ryohidaka/go-connpass/compare/v0.3.0...v0.4.0) (2025-04-25)
 
 
