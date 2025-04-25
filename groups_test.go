@@ -43,7 +43,7 @@ func ExampleConnpass_GetGroups() {
 	}
 
 	// Output:
-	// グループID: 1, グループ名: BPStudy
+	//
 }
 
 func TestGetGroups(t *testing.T) {

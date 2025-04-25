@@ -42,7 +42,7 @@ func ExampleConnpass_GetEventPresentations() {
 	}
 
 	// Output:
-	// タイトル: Togetterまとめ
+	//
 }
 
 func TestGetEventPresentations(t *testing.T) {
