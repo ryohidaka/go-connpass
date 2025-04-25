@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.0](https://github.com/ryohidaka/go-connpass/compare/v0.4.2...v0.5.0) (2025-04-25)
+
+
+### Features
+
+* **api:** ユーザー一覧取得を追加 ([78d5dee](https://github.com/ryohidaka/go-connpass/commit/78d5deeac9fb8fb1e791b5d7dcc6ffcb627d29ba))
+* **types:** ユーザー一覧の型定義を追加 ([90a4010](https://github.com/ryohidaka/go-connpass/commit/90a401054f8ecb94e339600f85f130e1692b9255))
+* **types:** 型の名前を変更 ([543440f](https://github.com/ryohidaka/go-connpass/commit/543440f9c92229dcfa94ea01a945131fff234369))
+
 ## [0.4.2](https://github.com/ryohidaka/go-connpass/compare/v0.4.1...v0.4.2) (2025-04-25)
 
 
