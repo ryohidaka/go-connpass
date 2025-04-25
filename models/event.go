@@ -31,7 +31,7 @@ type GetEventsResponse struct {
 
 // イベント
 type ConnpassEvent struct {
-	ID               int        `json:"event_id"`           // イベントID
+	ID               int        `json:"id"`                 // イベントID
 	Title            string     `json:"title"`              // イベント名
 	Catch            string     `json:"catch"`              // キャッチ
 	Description      string     `json:"description"`        // 概要
