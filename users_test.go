@@ -2,14 +2,53 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetUsers() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	// ユーザー取得パラメータを指定
+	query := models.GetUsersQuery{
+		Nickname: []string{"haru860"},
+		BaseQuery: models.BaseQuery{
+			Start: 1,
+			Count: 10,
+		},
+	}
+
+	// ユーザー一覧を取得
+	users, err := c.GetUsers(&query)
+	if err != nil {
+		fmt.Printf("イベント取得に失敗しました: %v\n", err)
+		return
+	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
+
+	// 各ユーザーのユーザーIDとニックネームを出力
+	for _, user := range users.Users {
+		fmt.Printf("ユーザーID: %d, ニックネーム: %s\n", user.ID, user.Nickname)
+	}
+
+	// Output:
+	// ユーザーID: 8, ニックネーム: haru860
+}
 
 func TestGetUsers(t *testing.T) {
 	// ダミーを生成
