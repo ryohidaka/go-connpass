@@ -35,6 +35,9 @@ func main() {
 
     // イベント資料一覧を取得
     presentations, _ := c.GetEventPresentations(364)
+
+    // グループ一覧を取得
+    groups, _ := c.GetGroups()
 }
 ```
 
