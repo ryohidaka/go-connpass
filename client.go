@@ -20,7 +20,7 @@ type Connpass struct {
 
 // 指定された API キーで Connpass クライアントを生成する。
 //
-// https://connpass.com/about/api/v2/#section/%E6%A6%82%E8%A6%81/%E8%AA%8D%E8%A8%BC
+// [APIリファレンス](https://connpass.com/about/api/v2/#section/%E6%A6%82%E8%A6%81/%E8%AA%8D%E8%A8%BC)
 //
 // 例:
 //
