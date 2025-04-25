@@ -36,6 +36,7 @@ type ConnpassEvent struct {
 	Catch            string     `json:"catch"`              // キャッチ
 	Description      string     `json:"description"`        // 概要
 	URL              string     `json:"event_url"`          // connpass.com上のURL
+	ImageURL         string     `json:"image_url"`          // イベント画像URL
 	HashTag          string     `json:"hash_tag"`           // X(Twitter)のハッシュタグ
 	StartedAt        time.Time  `json:"started_at"`         // イベント開催日時
 	EndedAt          time.Time  `json:"ended_at"`           // イベント終了日時
