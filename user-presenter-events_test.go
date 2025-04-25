@@ -2,14 +2,52 @@ package connpass_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/internal/config"
+	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+func ExampleConnpass_GetUserPresenterEvents() {
+	// APIキーを取得
+	apiKey := config.GetAPIKey()
+
+	// クライアントを初期化
+	c := connpass.NewClient(apiKey)
+
+	nickname := "haru860"
+
+	// ユーザー発表イベント取得パラメータを指定
+	query := models.GetUserPresenterEventsQuery{
+		Start: 1,
+		Count: 10,
+	}
+
+	// ユーザー発表イベント一覧を取得
+	events, err := c.GetUserPresenterEvents(nickname, &query)
+	if err != nil {
+		fmt.Printf("ユーザー発表イベント取得に失敗しました: %v\n", err)
+		return
+	}
+
+	// スロットリング対策
+	time.Sleep(1 * time.Second)
+
+	// 各イベントのイベントIDとイベント名を出力
+	if len(events.Events) > 0 {
+		fmt.Printf("イベントID: %d, イベント名: %s\n", events.Events[0].ID, events.Events[0].Title)
+	}
+
+	// Output:
+	//　イベントID: 353126, イベント名: BPStudy#213〜ビジネスアナリシスとDDD（ドメイン駆動設計）
+}
 
 func TestGetUserPresenterEvents(t *testing.T) {
 	// ダミーを生成
