@@ -41,6 +41,9 @@ func main() {
 
     // ユーザー一覧を取得
     users, _ := c.GetUsers()
+
+    // ユーザー所属グループ一覧を取得
+    userGroups, _ := c.GetUserGroups("haru860")
 }
 ```
 
