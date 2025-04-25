@@ -2,6 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/ryohidaka/go-connpass.svg)](https://pkg.go.dev/github.com/ryohidaka/go-connpass)
 ![GitHub Release](https://img.shields.io/github/v/release/ryohidaka/go-connpass)
+[![codecov](https://codecov.io/gh/ryohidaka/go-connpass/graph/badge.svg?token=BSFAcheBNm)](https://codecov.io/gh/ryohidaka/go-connpass)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Go 用 connpass API v2 クライアント
