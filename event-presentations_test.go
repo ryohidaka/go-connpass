@@ -32,17 +32,17 @@ func ExampleConnpass_GetEventPresentations() {
 	// イベント資料一覧を取得
 	presentations, err := c.GetEventPresentations(eventId, &query)
 	if err != nil {
-		fmt.Printf("イベント資料取得に失敗しました: %v", err)
+		fmt.Printf("イベント資料取得に失敗しました: %v\n", err)
 		return
 	}
 
-	// 出力
-	presentationJSON, err := json.MarshalIndent(presentations, "", "  ")
-	if err != nil {
-		fmt.Printf("JSONマーシャリングに失敗しました: %v", err)
-		return
+	// 各資料のタイトルのみを出力
+	for _, presentation := range presentations.Presentations {
+		fmt.Printf("Name: %s\n", presentation.Name)
 	}
-	fmt.Println(string(presentationJSON))
+
+	// Output:
+	// タイトル: Togetterまとめ
 }
 
 func TestGetEventPresentations(t *testing.T) {

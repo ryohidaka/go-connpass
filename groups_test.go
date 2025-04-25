@@ -33,17 +33,17 @@ func ExampleConnpass_GetGroups() {
 	// グループ一覧を取得
 	groups, err := c.GetGroups(&query)
 	if err != nil {
-		fmt.Printf("グループ取得に失敗しました: %v", err)
+		fmt.Printf("グループ取得に失敗しました: %v\n", err)
 		return
 	}
 
-	// 出力
-	groupJSON, err := json.MarshalIndent(groups, "", "  ")
-	if err != nil {
-		fmt.Printf("JSONマーシャリングに失敗しました: %v", err)
-		return
+	// 各グループのグループIDとグループ名を出力
+	for _, group := range groups.Groups {
+		fmt.Printf("グループID: %d, グループ名: %s\n", group.ID, group.Title)
 	}
-	fmt.Println(string(groupJSON))
+
+	// Output:
+	// グループID: 1, グループ名: BPStudy
 }
 
 func TestGetGroups(t *testing.T) {

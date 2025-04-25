@@ -23,23 +23,27 @@ func ExampleConnpass_GetEvents() {
 
 	// イベント取得パラメータを指定
 	query := models.GetEventsQuery{
-		Keyword: []string{"Go言語"},
+		EventID: 364,
+		BaseQuery: models.BaseQuery{
+			Start: 1,
+			Count: 10,
+		},
 	}
 
 	// イベント一覧を取得
 	events, err := c.GetEvents(&query)
 	if err != nil {
-		fmt.Printf("イベント取得に失敗しました: %v", err)
+		fmt.Printf("イベント取得に失敗しました: %v\n", err)
 		return
 	}
 
-	// 出力
-	eventJSON, err := json.MarshalIndent(events, "", "  ")
-	if err != nil {
-		fmt.Printf("JSONマーシャリングに失敗しました: %v", err)
-		return
+	// 各イベントのイベントIDとイベント名を出力
+	for _, event := range events.Events {
+		fmt.Printf("イベントID: %d, イベント名: %s\n", event.ID, event.Title)
 	}
-	fmt.Println(string(eventJSON))
+
+	// Output:
+	// イベントID: 364, イベント名: BPStudy#56
 }
 
 func TestGetEvents(t *testing.T) {
