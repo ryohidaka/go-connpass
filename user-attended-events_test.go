@@ -1,13 +1,11 @@
 package connpass_test
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 	"time"
 
+	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/internal/config"
 	"github.com/ryohidaka/go-connpass/models"
@@ -50,50 +48,50 @@ func ExampleConnpass_GetUserAttendedEvents() {
 }
 
 func TestGetUserAttendedEvents(t *testing.T) {
-	// ダミーを生成
-	dummyQuery := testutil.DummyGetUserAttendedEventsQuery()
-	dummyResponse := testutil.DummyGetUserAttendedEventsResponse()
+	// モックのHTTPサーバーを有効化
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
 
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
-		// モックのHTTPサーバーを作成
-		mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// レスポンスを模擬する
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-			json.NewEncoder(w).Encode(dummyResponse)
-		}))
-		defer mockServer.Close()
+		// モックレスポンスを設定
+		err := testutil.MockResponseFromFile(connpass.BaseURL+"/users/haru860/attended_events", "user-events")
+		assert.NoError(t, err)
 
 		// クライアント設定
 		c := connpass.NewClient("dummy-api-key")
-		c.BaseURL = mockServer.URL // モックサーバーのURLを設定
+
+		query := models.GetUserAttendedEventsQuery{
+			Start: 1,
+			Count: 10,
+		}
 
 		// ユーザー参加イベント取得
-		resp, err := c.GetUserAttendedEvents("haru860", &dummyQuery)
+		resp, err := c.GetUserAttendedEvents("haru860", &query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
-		assert.Equal(t, dummyResponse, resp)
+		assert.Equal(t, resp.ResultsReturned, 10)
+		assert.Equal(t, resp.ResultsAvailable, 60)
+		assert.Equal(t, resp.ResultsStart, 1)
+
+		e := resp.Events[0]
+		assert.Equal(t, e.ID, 353126)
+		assert.Equal(t, e.Title, "BPStudy#213〜ビジネスアナリシスとDDD（ドメイン駆動設計）")
 	})
 
 	// 異常系テストケース
 	t.Run("異常系", func(t *testing.T) {
 		t.Run("APIエラー", func(t *testing.T) {
-			// モックのHTTPサーバーを作成
-			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				// エラーレスポンスを模擬
-				w.WriteHeader(http.StatusBadRequest)
-				w.Write([]byte("Bad Request"))
-			}))
-			defer mockServer.Close()
+			// APIエラーを模擬（400 Bad Request）
+			httpmock.RegisterResponder("GET", connpass.BaseURL+"/users/dummy-nickname/attended_events",
+				httpmock.NewStringResponder(400, "Bad Request"))
 
 			// クライアント設定
 			c := connpass.NewClient("dummy-api-key")
-			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// ユーザー参加イベント取得
-			_, err := c.GetUserAttendedEvents("dummy-nickname", &dummyQuery)
+			_, err := c.GetUserAttendedEvents("dummy-nickname", nil)
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -101,20 +99,15 @@ func TestGetUserAttendedEvents(t *testing.T) {
 		})
 
 		t.Run("予期しないエラーAPIエラー", func(t *testing.T) {
-			// モックのHTTPサーバーを作成
-			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				// 予期しないエラーレスポンスを模擬
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Internal Server Error"))
-			}))
-			defer mockServer.Close()
+			// APIエラーを模擬（500 Internal Server Error）
+			httpmock.RegisterResponder("GET", connpass.BaseURL+"/users/dummy-nickname/attended_events",
+				httpmock.NewStringResponder(500, "Internal Server Error"))
 
 			// クライアント設定
 			c := connpass.NewClient("dummy-api-key")
-			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// ユーザー参加イベント取得
-			_, err := c.GetUserAttendedEvents("dummy-nickname", &dummyQuery)
+			_, err := c.GetUserAttendedEvents("dummy-nickname", nil)
 
 			// エラーチェック
 			assert.Error(t, err)

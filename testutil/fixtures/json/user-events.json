@@ -1,0 +1,37 @@
+{
+  "results_returned": 10,
+  "results_available": 60,
+  "results_start": 1,
+  "events": [
+    {
+      "id": 353126,
+      "title": "BPStudy#213〜ビジネスアナリシスとDDD（ドメイン駆動設計）",
+      "catch": "株式会社ビープラウドが主催するIT勉強会",
+      "description": "<h3>zoomを使ってのリモート開催です。zoomのURL等は、当ページの「参加者への情報」欄に記載されています。別途、参加者にメールにてお知らせします。</h3>\n<p><strong>エンジニアは、どこまでビジネスに踏み込むべきか？</strong></p>\n<p>これまで「企画・要件定義」といった上流工程と、「設計・実装」といった開発工程は、分業されるのが一般的でした。</p>\n<p>しかし、生成AIの進化により、これらすべての領域をエンジニア一人の視野に収める時代が、目前に迫っています。</p>\n<p>そのような時代において、<strong>技術的に「どうつくるか」だけでなく、ビジネスの文脈から「なぜつくるのか」を理解し、構想し、実装</strong>できることが、これからのエンジニアに求められる重要なスキルです。</p>\n<p>その視座を獲得する鍵が、『<strong>ビジネスアナリシス</strong>』です。  </p>\n<p>ビジネスアナリシスは、<strong>ニーズを捉え、価値ある解決策を導き出すことで、企業に変革をもたらす</strong>実践的なアプローチです。</p>\n<p>このビジネス的な視点を、ソフトウェアの設計や実装へと結びつけるうえで有効なのが、<strong>DDD（ドメイン駆動設計）</strong>です。 </p>\n<p>DDDは、<strong>事業の構造や意図を深く理解し、それをソフトウェアに的確に落とし込む</strong>ことを目指す設計アプローチです。</p>\n<p>今回のBPStudyでは、「<strong>ビジネスアナリシスとDDD</strong>」をテーマに、  生成AI時代における開発者の役割とスキルの進化について、多角的に掘り下げていきます。</p>\n<p>第1部では、ビジネスアナリシス分野で活躍されている塩田宏治さんに、入門的な解説からその必要性、実践での活用のヒントまでをお話しいただきます。</p>\n<p>第2部では、DDDに造詣の深い増田亨さん、IIBA日本支部理事の濱井和夫さん、そして塩田宏治さんにパネルディスカッションに登壇いただき、 「ビジネスアナリシスとDDDの接点」を探っていきます。</p>\n<p>※IIBA：International Institute of Business Analysis：ビジネスアナリシスの国際的な非営利団体</p>\n<h1>第1部 ビジネスアナリシスはビジネス”分析”じゃないよ！～システム人材が価値を生むための基盤スキルとしてのビジネスアナリシス～</h1>\n<p>(19:30〜20:30)　</p>\n<h4>株式会社クリエビジョン 塩田 宏治 氏</h4>\n<p>デジタルやITを用いたプロダクト・サービスやシステムを開発し導入する組織や人材は、要求されたものをしっかり作る責任を果たすだけでは、顧客やビジネスグループの期待値に応えることが難しい時代になってきているのではないでしょうか。<br>\n<br>\nなぜ言われたものを作るだけでは高い成果につながりにくいのか、なぜ声をかけてもらえるのが顧客でやりたいことが決まってからなのか、なぜ私たちはプロジェクトやプロダクト単位で成果を出すところで止まりがちなのか、など開発側の私たちが、今の時代において考え直すべきことは、多々あるように見えます。<br>\n<br>\nこうしたビジネスとテクノロジーをまたがって、<strong>私たちはどのようなマインドセットを持ち、どう振舞っていくのがよいのかを考えるヒントが、ビジネスアナリシス領域のフレームワークには詰まっています</strong>。<br>\n<br>\n<strong>開発エンジニアもプロジェクトマネジャーも、システムを企画開発し導入運用するすべての人材が、基盤スキルとしてもつべきビジネスアナリシスとは何か</strong>を議論します。</p>\n<h5>自己紹介</h5>\n<h6>塩田 宏治<br></h6>\n<p><a href=\"https://www.crea-v.com/\" rel=\"nofollow\">株式会社クリエビジョン</a>代表取締役。<br>\n<br>\nIIBA日本支部 理事。\n<br>\nMBA, CBAP®️, CPOA,　AAC, PgMP®️, PMP®️, TOGAF®️9 Certified, SAFe®️ SPC<br>\n<br>\nSierおよびユーザ企業のビジネス部門および情報システム部門や海外事業所で、さまざまなビジネス改革とシステム開発活動や組織マネジメントを経験し、その後独立。<br>\n<br>\nビジネスアナリシス、ビジネス＆エンタープライズアーキテクチャー、プログラムおよびプロジェクトマネジメント、エンタープライズアジャイル等の領域で企業を支援し続けている。</p>\n<p><img src=\"https://cdn-ak.f.st-hatena.com/images/fotolife/h/haru860/20250422/20250422165218.jpg\" width=\"300\"></p>\n<h1>第2部 ビジネスアナリシスとドメイン駆動設計の接点を探る（パネルディスカッション）</h1>\n<h4>増田 亨 氏</h4>\n<p>有限会社システム設計　代表<br>\nアプリケーション開発者<br>\nドメイン駆動設計、現代的なオブジェクト指向プログラミング、Java、Spring<br>\n著書『現場で役立つシステム設計の原則』<br>\n訳書『ドメイン駆動設計をはじめよう』<br></p>\n<p><img src=\"https://cdn-ak.f.st-hatena.com/images/fotolife/h/haru860/20220607/20220607193009.jpg\" width=\"300\"></p>\n<h4>濱井 和夫 氏</h4>\n<p><a href=\"https://www.nttcom.co.jp/\" rel=\"nofollow\">NTTコムウェア</a>でPMO業務を行う傍ら、2017年からIIBA日本支部 理事としてビジネスアナリシス、BABOKの日本での普及活動に従事。<br>\n<br>\nKindle版「よくわかるビジネスアナリシス」（共著）、BABOKガイド アジャイル拡張版v2（共訳）、ビジネスデータアナリティクス・ガイド（共訳）、ビジネスアナリシス標準（共訳）、プロダクトオーナーシップ概論（共訳）、ビジネスアーキテクチャー　～ビジネスを構成する点を集め、つなぎ、正す～（共訳：まもなく出版予定）など。<br>\n匠Method User Group幹事グループメンバー<br></p>\n<p><img src=\"https://media.connpass.com/thumbs/4b/c0/4bc026f936e228351ace4fc606686cd4.png\" width=\"300\"></p>\n<h4>塩田 宏治 氏</h4>\n<p><img src=\"https://cdn-ak.f.st-hatena.com/images/fotolife/h/haru860/20250422/20250422165218.jpg\" width=\"300\"></p>\n<p>自己紹介は第1部を参照のこと</p>\n<h2>モデラー</h2>\n<h4>佐藤 治夫</h4>\n<p><a href=\"https://bpstudy.connpass.com/\" rel=\"nofollow\">BPStudy</a>を2007年から主催し、毎月1回ずつ開催を続けている。</p>\n<p>ビープラウドではPythonをメイン言語とし受託開発を行う一方、自社サービスとして、IT勉強会支援プラットフォーム<a href=\"https://connpass.com/\" rel=\"nofollow\">Connpass</a>、Pythonオンライン学習サイト<a href=\"https://pyq.jp/\" rel=\"nofollow\">PyQ</a>、システム開発チーム向けドキュメントサービス<a href=\"https://tracery.jp/\" rel=\"nofollow\">Tracery</a>を企画・開発・運営している。</p>\n<p><img src=\"https://cdn-ak.f.st-hatena.com/images/fotolife/h/haru860/20210406/20210406155626.png\" width=\"300\"></p>",
+      "url": "https://bpstudy.connpass.com/event/353126/",
+      "image_url": "https://media.connpass.com/thumbs/c5/c7/c5c738817f4e8086a932ad9c928c0a54.png",
+      "hash_tag": "bpstudy",
+      "started_at": "2025-05-29T19:30:00+09:00",
+      "ended_at": "2025-05-29T21:15:00+09:00",
+      "limit": 124,
+      "event_type": "participation",
+      "open_status": "preopen",
+      "group": {
+        "id": 1,
+        "subdomain": "bpstudy",
+        "title": "BPStudy",
+        "url": "https://bpstudy.connpass.com/"
+      },
+      "address": "オンライン",
+      "place": "リモート(zoom)",
+      "lat": null,
+      "lon": null,
+      "owner_id": 8,
+      "owner_nickname": "haru860",
+      "owner_display_name": "佐藤 治夫",
+      "accepted": 121,
+      "waiting": 0,
+      "updated_at": "2025-04-28T15:49:41+09:00"
+    }
+  ]
+}

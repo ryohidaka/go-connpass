@@ -1,13 +1,11 @@
 package connpass_test
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 	"time"
 
+	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/internal/config"
 	"github.com/ryohidaka/go-connpass/models"
@@ -50,50 +48,50 @@ func ExampleConnpass_GetUserGroups() {
 }
 
 func TestGetUserGroups(t *testing.T) {
-	// ダミーを生成
-	dummyQuery := testutil.DummyGetUserGroupsQuery()
-	dummyResponse := testutil.DummyGetUserGroupsResponse()
+	// モックのHTTPサーバーを有効化
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
 
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
-		// モックのHTTPサーバーを作成
-		mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// レスポンスを模擬する
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusOK)
-			json.NewEncoder(w).Encode(dummyResponse)
-		}))
-		defer mockServer.Close()
+		// モックレスポンスを設定
+		err := testutil.MockResponseFromFile(connpass.BaseURL+"/users/haru860/groups", "user-groups")
+		assert.NoError(t, err)
 
 		// クライアント設定
 		c := connpass.NewClient("dummy-api-key")
-		c.BaseURL = mockServer.URL // モックサーバーのURLを設定
+
+		query := models.GetUserGroupsQuery{
+			Start: 1,
+			Count: 10,
+		}
 
 		// ユーザー所属グループ取得
-		resp, err := c.GetUserGroups("haru860", &dummyQuery)
+		resp, err := c.GetUserGroups("haru860", &query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
-		assert.Equal(t, dummyResponse, resp)
+		assert.Equal(t, resp.ResultsReturned, 10)
+		assert.Equal(t, resp.ResultsAvailable, 93)
+		assert.Equal(t, resp.ResultsStart, 1)
+
+		g := resp.Groups[0]
+		assert.Equal(t, g.ID, 1)
+		assert.Equal(t, g.Title, "BPStudy")
 	})
 
 	// 異常系テストケース
 	t.Run("異常系", func(t *testing.T) {
 		t.Run("APIエラー", func(t *testing.T) {
-			// モックのHTTPサーバーを作成
-			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				// エラーレスポンスを模擬
-				w.WriteHeader(http.StatusBadRequest)
-				w.Write([]byte("Bad Request"))
-			}))
-			defer mockServer.Close()
+			// APIエラーを模擬（400 Bad Request）
+			httpmock.RegisterResponder("GET", connpass.BaseURL+"/users/dummy-nickname/groups",
+				httpmock.NewStringResponder(400, "Bad Request"))
 
 			// クライアント設定
 			c := connpass.NewClient("dummy-api-key")
-			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// ユーザー所属グループ取得
-			_, err := c.GetUserGroups("dummy-nickname", &dummyQuery)
+			_, err := c.GetUserGroups("dummy-nickname", nil)
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -101,20 +99,15 @@ func TestGetUserGroups(t *testing.T) {
 		})
 
 		t.Run("予期しないエラーAPIエラー", func(t *testing.T) {
-			// モックのHTTPサーバーを作成
-			mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				// 予期しないエラーレスポンスを模擬
-				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte("Internal Server Error"))
-			}))
-			defer mockServer.Close()
+			// APIエラーを模擬（500 Internal Server Error）
+			httpmock.RegisterResponder("GET", connpass.BaseURL+"/users/dummy-nickname/groups",
+				httpmock.NewStringResponder(500, "Internal Server Error"))
 
 			// クライアント設定
 			c := connpass.NewClient("dummy-api-key")
-			c.BaseURL = mockServer.URL // モックサーバーのURLを設定
 
 			// ユーザー所属グループ取得
-			_, err := c.GetUserGroups("dummy-nickname", &dummyQuery)
+			_, err := c.GetUserGroups("dummy-nickname", nil)
 
 			// エラーチェック
 			assert.Error(t, err)
