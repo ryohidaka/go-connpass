@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.1](https://github.com/ryohidaka/go-connpass/compare/v0.8.0...v0.8.1) (2025-05-05)
+
+
+### Bug Fixes
+
+* ファイル名をスネークケースに統一 ([f1c9222](https://github.com/ryohidaka/go-connpass/commit/f1c922244c8af88ddca323dd91de4facdef75296))
+
 ## [0.8.0](https://github.com/ryohidaka/go-connpass/compare/v0.7.0...v0.8.0) (2025-04-25)
 
 
