@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.3](https://github.com/ryohidaka/go-connpass/compare/v0.8.2...v0.8.3) (2025-05-06)
+
+
+### Bug Fixes
+
+* 非推奨のio/ioutilをioに変更 ([8d94b44](https://github.com/ryohidaka/go-connpass/commit/8d94b44d26e94f84a3ce7d36ff3c78b986d229b2))
+
 ## [0.8.2](https://github.com/ryohidaka/go-connpass/compare/v0.8.1...v0.8.2) (2025-05-06)
 
 
