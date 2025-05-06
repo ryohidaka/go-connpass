@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.2](https://github.com/ryohidaka/go-connpass/compare/v0.8.1...v0.8.2) (2025-05-06)
+
+
+### Bug Fixes
+
+* リンクの記載方法を修正 ([e96cd65](https://github.com/ryohidaka/go-connpass/commit/e96cd6525b5f017f4b42b218f0900a3720d26772))
+
 ## [0.8.1](https://github.com/ryohidaka/go-connpass/compare/v0.8.0...v0.8.1) (2025-05-05)
 
 
