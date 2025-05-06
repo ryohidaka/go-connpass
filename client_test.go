@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"testing"
 
@@ -69,7 +69,7 @@ func TestRequest_Success(t *testing.T) {
 				roundTripFunc: func(req *http.Request) *http.Response {
 					return &http.Response{
 						StatusCode: 200,
-						Body:       ioutil.NopCloser(bytes.NewBuffer(respBody)),
+						Body:       io.NopCloser(bytes.NewBuffer(respBody)),
 						Header:     make(http.Header),
 					}
 				},
