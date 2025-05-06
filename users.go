@@ -6,7 +6,7 @@ import "github.com/ryohidaka/go-connpass/models"
 //
 // 検索クエリの条件に応じたユーザー一覧を取得する。
 //
-// [APIリファレンス](https://connpass.com/about/api/v2/#tag/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC/operation/connpass_account_account_api_v2_views_user_search)
+// [APIリファレンス]
 //
 // パラメータ:
 //   - query: ユーザー検索用のクエリパラメータ（省略可能）
@@ -14,6 +14,8 @@ import "github.com/ryohidaka/go-connpass/models"
 // 戻り値:
 //   - ユーザー一覧のレスポンス
 //   - エラーが発生した場合は error を返す
+//
+// [APIリファレンス]: https://connpass.com/about/api/v2/#tag/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC/operation/connpass_account_account_api_v2_views_user_search
 func (c *Connpass) GetUsers(query *models.GetUsersQuery) (*models.GetUsersResponse, error) {
 	var response models.GetUsersResponse
 	if err := c.Request("users", query, &response); err != nil {

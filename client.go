@@ -20,11 +20,13 @@ type Connpass struct {
 
 // 指定された API キーで Connpass クライアントを生成する。
 //
-// [APIリファレンス](https://connpass.com/about/api/v2/#section/%E6%A6%82%E8%A6%81/%E8%AA%8D%E8%A8%BC)
+// [APIリファレンス]
 //
 // 例:
 //
 //	c := NewClient("YOUR_API_KEY")
+//
+// [APIリファレンス]: https://connpass.com/about/api/v2/#section/%E6%A6%82%E8%A6%81/%E8%AA%8D%E8%A8%BC
 func NewClient(apiKey string) *Connpass {
 	return &Connpass{
 		APIKey:  apiKey,

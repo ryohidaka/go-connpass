@@ -10,7 +10,7 @@ import (
 //
 // イベントに投稿された資料一覧を取得する。
 //
-// [APIリファレンス](https://connpass.com/about/api/v2/#tag/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/operation/connpass_event_event_api_v2_views_event_presentation)
+// [APIリファレンス]
 //
 // パラメータ:
 //   - id: イベントID (例: "364")
@@ -19,6 +19,8 @@ import (
 // 戻り値:
 //   - 資料一覧のレスポンス
 //   - エラーが発生した場合は error を返す
+//
+// [APIリファレンス]: https://connpass.com/about/api/v2/#tag/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/operation/connpass_event_event_api_v2_views_event_presentation
 func (c *Connpass) GetEventPresentations(id int, query *models.GetEventPresentationsQuery) (*models.GetEventPresentationsResponse, error) {
 	var response models.GetEventPresentationsResponse
 	endpoint := fmt.Sprintf("events/%d/presentations", id)
