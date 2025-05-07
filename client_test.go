@@ -58,7 +58,7 @@ func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 	return m.roundTripFunc(req), nil
 }
 
-func TestRequest_Success(t *testing.T) {
+func TestRequest(t *testing.T) {
 	t.Run("正常系", func(t *testing.T) {
 		// モックのレスポンスデータ
 		expected := map[string]string{"status": "ok"}
@@ -96,10 +96,92 @@ func TestRequest_Success(t *testing.T) {
 	})
 
 	t.Run("異常系", func(t *testing.T) {
+		// 無効な URL に対するテスト
 		c := connpass.NewClient("dummy")
 		err := c.Request("::://bad-url", nil, &map[string]string{})
 		if err == nil {
 			t.Error("不正なURLに対してエラーが返されることが期待されましたが、nilが返されました")
+		}
+	})
+
+	t.Run("HTTP 400 エラー", func(t *testing.T) {
+		// 400 エラーの場合
+		mockClient := &http.Client{
+			Transport: &mockRoundTripper{
+				roundTripFunc: func(req *http.Request) *http.Response {
+					return &http.Response{
+						StatusCode: 400,
+						Body:       io.NopCloser(bytes.NewBufferString("Bad Request")),
+						Header:     make(http.Header),
+					}
+				},
+			},
+		}
+
+		c := &connpass.Connpass{
+			APIKey:  "dummy",
+			Client:  mockClient,
+			BaseURL: "https://connpass.com/api/v2",
+		}
+
+		var out map[string]string
+		err := c.Request("mock", struct{}{}, &out)
+		if err == nil {
+			t.Error("400 エラーに対してエラーが返されることが期待されましたが、nilが返されました")
+		}
+	})
+
+	t.Run("HTTP 500 エラー", func(t *testing.T) {
+		// 500 エラーの場合
+		mockClient := &http.Client{
+			Transport: &mockRoundTripper{
+				roundTripFunc: func(req *http.Request) *http.Response {
+					return &http.Response{
+						StatusCode: 500,
+						Body:       io.NopCloser(bytes.NewBufferString("Internal Server Error")),
+						Header:     make(http.Header),
+					}
+				},
+			},
+		}
+
+		c := &connpass.Connpass{
+			APIKey:  "dummy",
+			Client:  mockClient,
+			BaseURL: "https://connpass.com/api/v2",
+		}
+
+		var out map[string]string
+		err := c.Request("mock", struct{}{}, &out)
+		if err == nil {
+			t.Error("500 エラーに対してエラーが返されることが期待されましたが、nilが返されました")
+		}
+	})
+
+	t.Run("JSON デコードエラー", func(t *testing.T) {
+		// 無効な JSON レスポンスの場合
+		mockClient := &http.Client{
+			Transport: &mockRoundTripper{
+				roundTripFunc: func(req *http.Request) *http.Response {
+					return &http.Response{
+						StatusCode: 200,
+						Body:       io.NopCloser(bytes.NewBufferString("Invalid JSON")),
+						Header:     make(http.Header),
+					}
+				},
+			},
+		}
+
+		c := &connpass.Connpass{
+			APIKey:  "dummy",
+			Client:  mockClient,
+			BaseURL: "https://connpass.com/api/v2",
+		}
+
+		var out map[string]string
+		err := c.Request("mock", struct{}{}, &out)
+		if err == nil {
+			t.Error("無効な JSON レスポンスに対してエラーが返されることが期待されましたが、nilが返されました")
 		}
 	})
 }
