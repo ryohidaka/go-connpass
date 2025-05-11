@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"testing"
 
 	"github.com/ryohidaka/go-connpass"
-	"github.com/ryohidaka/go-connpass/internal/config"
 )
 
 func ExampleNewClient() {
 	// APIキーを取得
-	apiKey := config.GetAPIKey()
+	apiKey := os.Getenv("CONNPASS_API_KEY")
 
 	// クライアントを初期化して返す
 	c := connpass.NewClient(apiKey)

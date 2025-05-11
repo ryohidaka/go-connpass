@@ -2,12 +2,12 @@ package connpass_test
 
 import (
 	"fmt"
+	"os"
 	"testing"
 	"time"
 
 	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
-	"github.com/ryohidaka/go-connpass/internal/config"
 	"github.com/ryohidaka/go-connpass/models"
 	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +15,7 @@ import (
 
 func ExampleConnpass_GetUsers() {
 	// APIキーを取得
-	apiKey := config.GetAPIKey()
+	apiKey := os.Getenv("CONNPASS_API_KEY")
 
 	// クライアントを初期化
 	c := connpass.NewClient(apiKey)
