@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/ryohidaka/go-connpass/compare/v0.8.3...v0.9.0) (2025-05-11)
+
+
+### Features
+
+* **api:** APIキーの取得方法を変更 ([06d614f](https://github.com/ryohidaka/go-connpass/commit/06d614fec64ba1ab668bfb39b3925e6f0d3429ec))
+
 ## [0.8.3](https://github.com/ryohidaka/go-connpass/compare/v0.8.2...v0.8.3) (2025-05-06)
 
 
