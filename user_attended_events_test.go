@@ -29,7 +29,7 @@ func ExampleConnpass_GetUserAttendedEvents() {
 	}
 
 	// ユーザー参加イベント一覧を取得
-	events, err := c.GetUserAttendedEvents(nickname, &query)
+	events, err := c.GetUserAttendedEvents(nickname, query)
 	if err != nil {
 		fmt.Printf("ユーザー参加イベント取得に失敗しました: %v\n", err)
 		return
@@ -67,7 +67,7 @@ func TestGetUserAttendedEvents(t *testing.T) {
 		}
 
 		// ユーザー参加イベント取得
-		resp, err := c.GetUserAttendedEvents("haru860", &query)
+		resp, err := c.GetUserAttendedEvents("haru860", query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -91,7 +91,7 @@ func TestGetUserAttendedEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー参加イベント取得
-			_, err := c.GetUserAttendedEvents("dummy-nickname", nil)
+			_, err := c.GetUserAttendedEvents("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -107,7 +107,7 @@ func TestGetUserAttendedEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー参加イベント取得
-			_, err := c.GetUserAttendedEvents("dummy-nickname", nil)
+			_, err := c.GetUserAttendedEvents("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)

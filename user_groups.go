@@ -21,7 +21,7 @@ import (
 //   - エラーが発生した場合は error を返す
 //
 // [APIリファレンス]: https://connpass.com/about/api/v2/#tag/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC/operation/connpass_account_account_api_v2_views_user_group
-func (c *Connpass) GetUserGroups(nickname string, query *models.GetUserGroupsQuery) (*models.GetUserGroupsResponse, error) {
+func (c *Connpass) GetUserGroups(nickname string, query ...models.GetUserGroupsQuery) (*models.GetUserGroupsResponse, error) {
 	var response models.GetUserGroupsResponse
 	endpoint := fmt.Sprintf("users/%s/groups", nickname)
 	if err := c.Request(endpoint, query, &response); err != nil {

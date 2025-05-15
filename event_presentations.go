@@ -21,7 +21,7 @@ import (
 //   - エラーが発生した場合は error を返す
 //
 // [APIリファレンス]: https://connpass.com/about/api/v2/#tag/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88/operation/connpass_event_event_api_v2_views_event_presentation
-func (c *Connpass) GetEventPresentations(id int, query *models.GetEventPresentationsQuery) (*models.GetEventPresentationsResponse, error) {
+func (c *Connpass) GetEventPresentations(id int, query ...models.GetEventPresentationsQuery) (*models.GetEventPresentationsResponse, error) {
 	var response models.GetEventPresentationsResponse
 	endpoint := fmt.Sprintf("events/%d/presentations", id)
 	if err := c.Request(endpoint, query, &response); err != nil {

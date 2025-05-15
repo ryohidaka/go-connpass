@@ -29,7 +29,7 @@ func ExampleConnpass_GetUserPresenterEvents() {
 	}
 
 	// ユーザー発表イベント一覧を取得
-	events, err := c.GetUserPresenterEvents(nickname, &query)
+	events, err := c.GetUserPresenterEvents(nickname, query)
 	if err != nil {
 		fmt.Printf("ユーザー発表イベント取得に失敗しました: %v\n", err)
 		return
@@ -67,7 +67,7 @@ func TestGetUserPresenterEvents(t *testing.T) {
 		}
 
 		// ユーザー発表イベント取得
-		resp, err := c.GetUserPresenterEvents("haru860", &query)
+		resp, err := c.GetUserPresenterEvents("haru860", query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -91,7 +91,7 @@ func TestGetUserPresenterEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー発表イベント取得
-			_, err := c.GetUserPresenterEvents("dummy-nickname", nil)
+			_, err := c.GetUserPresenterEvents("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -107,7 +107,7 @@ func TestGetUserPresenterEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー発表イベント取得
-			_, err := c.GetUserPresenterEvents("dummy-nickname", nil)
+			_, err := c.GetUserPresenterEvents("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)

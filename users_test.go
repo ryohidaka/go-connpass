@@ -30,7 +30,7 @@ func ExampleConnpass_GetUsers() {
 	}
 
 	// ユーザー一覧を取得
-	users, err := c.GetUsers(&query)
+	users, err := c.GetUsers(query)
 	if err != nil {
 		fmt.Printf("イベント取得に失敗しました: %v\n", err)
 		return
@@ -71,7 +71,7 @@ func TestGetUsers(t *testing.T) {
 		}
 
 		// ユーザー取得
-		resp, err := c.GetUsers(&query)
+		resp, err := c.GetUsers(query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -95,7 +95,7 @@ func TestGetUsers(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー取得
-			_, err := c.GetUsers(nil)
+			_, err := c.GetUsers()
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -111,7 +111,7 @@ func TestGetUsers(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー取得
-			_, err := c.GetUsers(nil)
+			_, err := c.GetUsers()
 
 			// エラーチェック
 			assert.Error(t, err)

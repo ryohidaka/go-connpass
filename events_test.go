@@ -30,7 +30,7 @@ func ExampleConnpass_GetEvents() {
 	}
 
 	// イベント一覧を取得
-	events, err := c.GetEvents(&query)
+	events, err := c.GetEvents(query)
 	if err != nil {
 		fmt.Printf("イベント取得に失敗しました: %v\n", err)
 		return
@@ -70,7 +70,7 @@ func TestGetEvents(t *testing.T) {
 		}
 
 		// イベント取得
-		resp, err := c.GetEvents(&query)
+		resp, err := c.GetEvents(query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -94,7 +94,7 @@ func TestGetEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// イベント取得
-			_, err := c.GetEvents(nil)
+			_, err := c.GetEvents()
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -110,7 +110,7 @@ func TestGetEvents(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// イベント取得
-			_, err := c.GetEvents(nil)
+			_, err := c.GetEvents()
 
 			// エラーチェック
 			assert.Error(t, err)

@@ -7,9 +7,11 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/ryohidaka/go-connpass"
+	"github.com/ryohidaka/go-connpass/models"
 )
 
 func ExampleNewClient() {
@@ -59,7 +61,7 @@ func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 }
 
 func TestRequest(t *testing.T) {
-	t.Run("正常系", func(t *testing.T) {
+	t.Run("正常系（構造体）", func(t *testing.T) {
 		// モックのレスポンスデータ
 		expected := map[string]string{"status": "ok"}
 		respBody, _ := json.Marshal(expected)
@@ -89,7 +91,52 @@ func TestRequest(t *testing.T) {
 		if err != nil {
 			t.Fatalf("リクエストに失敗しました: %v", err)
 		}
+		if out["status"] != "ok" {
+			t.Errorf("期待されたステータス 'ok' と異なります: %v", out["status"])
+		}
+	})
 
+	t.Run("正常系（スライス）", func(t *testing.T) {
+		// モックのレスポンスデータ
+		expected := map[string]string{"status": "ok"}
+		respBody, _ := json.Marshal(expected)
+
+		mockClient := &http.Client{
+			Transport: &mockRoundTripper{
+				roundTripFunc: func(req *http.Request) *http.Response {
+					if !strings.Contains(req.URL.RawQuery, "event_id") {
+						t.Error("event_id パラメータがクエリに含まれていません")
+					}
+					return &http.Response{
+						StatusCode: 200,
+						Body:       io.NopCloser(bytes.NewBuffer(respBody)),
+						Header:     make(http.Header),
+					}
+				},
+			},
+		}
+
+		c := &connpass.Connpass{
+			APIKey:  "dummy",
+			Client:  mockClient,
+			BaseURL: "https://connpass.com/api/v2",
+		}
+
+		// スライスとして渡すクエリ
+		query := models.GetEventsQuery{
+			EventID: []int{123},
+			BaseQuery: models.BaseQuery{
+				Start: 1,
+				Count: 10,
+			},
+		}
+
+		// モックレスポンス用の構造体
+		var out map[string]string
+		err := c.Request("mock", []models.GetEventsQuery{query}, &out)
+		if err != nil {
+			t.Fatalf("スライスでのリクエストに失敗しました: %v", err)
+		}
 		if out["status"] != "ok" {
 			t.Errorf("期待されたステータス 'ok' と異なります: %v", out["status"])
 		}

@@ -16,7 +16,7 @@ import "github.com/ryohidaka/go-connpass/models"
 //   - エラーが発生した場合は error を返す
 //
 // [APIリファレンス]: https://connpass.com/about/api/v2/#tag/%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97/operation/connpass_group_group_api_v2_views_group_search
-func (c *Connpass) GetGroups(query *models.GetGroupsQuery) (*models.GetGroupsResponse, error) {
+func (c *Connpass) GetGroups(query ...models.GetGroupsQuery) (*models.GetGroupsResponse, error) {
 	var response models.GetGroupsResponse
 	if err := c.Request("groups", query, &response); err != nil {
 		return nil, err

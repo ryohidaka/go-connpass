@@ -54,9 +54,15 @@ func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 	// クエリ構造体が指定されている場合、URL パラメータとしてエンコード
 	if queryStruct != nil {
 		v := reflect.ValueOf(queryStruct)
+
+		if v.Kind() == reflect.Slice && v.Len() > 0 {
+			v = v.Index(0)
+		}
+
 		if v.Kind() == reflect.Ptr {
 			v = v.Elem()
 		}
+
 		if v.Kind() == reflect.Struct {
 			values, err := query.Values(v.Interface())
 			if err != nil {

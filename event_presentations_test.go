@@ -29,7 +29,7 @@ func ExampleConnpass_GetEventPresentations() {
 	}
 
 	// イベント資料一覧を取得
-	presentations, err := c.GetEventPresentations(eventId, &query)
+	presentations, err := c.GetEventPresentations(eventId, query)
 	if err != nil {
 		fmt.Printf("イベント資料取得に失敗しました: %v\n", err)
 		return
@@ -67,7 +67,7 @@ func TestGetEventPresentations(t *testing.T) {
 		}
 
 		// イベント資料取得
-		resp, err := c.GetEventPresentations(364, &query)
+		resp, err := c.GetEventPresentations(364, query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -91,7 +91,7 @@ func TestGetEventPresentations(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// イベント資料取得
-			_, err := c.GetEventPresentations(0, nil)
+			_, err := c.GetEventPresentations(0)
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -107,7 +107,7 @@ func TestGetEventPresentations(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// イベント資料取得
-			_, err := c.GetEventPresentations(0, nil)
+			_, err := c.GetEventPresentations(0)
 
 			// エラーチェック
 			assert.Error(t, err)

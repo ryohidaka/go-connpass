@@ -29,7 +29,7 @@ func ExampleConnpass_GetUserGroups() {
 	}
 
 	// ユーザー所属グループ一覧を取得
-	groups, err := c.GetUserGroups(nickname, &query)
+	groups, err := c.GetUserGroups(nickname, query)
 	if err != nil {
 		fmt.Printf("ユーザー所属グループ取得に失敗しました: %v\n", err)
 		return
@@ -67,7 +67,7 @@ func TestGetUserGroups(t *testing.T) {
 		}
 
 		// ユーザー所属グループ取得
-		resp, err := c.GetUserGroups("haru860", &query)
+		resp, err := c.GetUserGroups("haru860", query)
 
 		// レスポンスの確認
 		assert.NoError(t, err)
@@ -91,7 +91,7 @@ func TestGetUserGroups(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー所属グループ取得
-			_, err := c.GetUserGroups("dummy-nickname", nil)
+			_, err := c.GetUserGroups("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)
@@ -107,7 +107,7 @@ func TestGetUserGroups(t *testing.T) {
 			c := connpass.NewClient("dummy-api-key")
 
 			// ユーザー所属グループ取得
-			_, err := c.GetUserGroups("dummy-nickname", nil)
+			_, err := c.GetUserGroups("dummy-nickname")
 
 			// エラーチェック
 			assert.Error(t, err)
