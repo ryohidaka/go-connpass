@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/ryohidaka/go-connpass/compare/v0.9.0...v0.10.0) (2025-05-15)
+
+
+### Features
+
+* **api:** クエリパラメータを可変長引数に変更 ([9145be0](https://github.com/ryohidaka/go-connpass/commit/9145be07c79ff116e9469b89ec15a1d38e2ab06d))
+
 ## [0.9.0](https://github.com/ryohidaka/go-connpass/compare/v0.8.3...v0.9.0) (2025-05-11)
 
 
