@@ -22,10 +22,6 @@ type Connpass struct {
 //
 // [APIリファレンス]
 //
-// 例:
-//
-//	c := NewClient("YOUR_API_KEY")
-//
 // [APIリファレンス]: https://connpass.com/about/api/v2/#section/%E6%A6%82%E8%A6%81/%E8%AA%8D%E8%A8%BC
 func NewClient(apiKey string) *Connpass {
 	return &Connpass{
@@ -37,14 +33,6 @@ func NewClient(apiKey string) *Connpass {
 
 // 指定された Connpass API のエンドポイントに GET リクエストを送り、
 // その JSON レスポンスを指定された型 T にデコードして返却する。
-//
-// パラメータ:
-//   - endpoint: API の相対パス (例: "events")
-//   - queryStruct: クエリパラメータの構造体（ポインタも可）
-//   - out: レスポンスの出力先（ポインタ）
-//
-// 戻り値:
-//   - エラーが発生した場合は error を返す
 func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 	reqURL, err := url.Parse(fmt.Sprintf("%s/%s", c.BaseURL, endpoint))
 	if err != nil {
