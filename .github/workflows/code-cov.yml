@@ -19,6 +19,8 @@ jobs:
 
       - name: Run coverage
         run: go test -coverprofile=coverage.txt
+        env:
+          CONNPASS_API_KEY: ${{ secrets.CONNPASS_API_KEY }}
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
