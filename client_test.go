@@ -62,7 +62,6 @@ func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) 
 
 func TestRequest(t *testing.T) {
 	t.Run("正常系（構造体）", func(t *testing.T) {
-		// モックのレスポンスデータ
 		expected := map[string]string{"status": "ok"}
 		respBody, _ := json.Marshal(expected)
 
@@ -84,20 +83,16 @@ func TestRequest(t *testing.T) {
 			BaseURL: "https://connpass.com/api/v2",
 		}
 
-		// モックレスポンス用の構造体
-		var out map[string]string
-
-		err := c.Request("mock", struct{}{}, &out)
+		res, err := connpass.Request[map[string]string](c, "mock", struct{}{})
 		if err != nil {
 			t.Fatalf("リクエストに失敗しました: %v", err)
 		}
-		if out["status"] != "ok" {
-			t.Errorf("期待されたステータス 'ok' と異なります: %v", out["status"])
+		if res["status"] != "ok" {
+			t.Errorf("期待されたステータス 'ok' と異なります: %v", res["status"])
 		}
 	})
 
 	t.Run("正常系（スライス）", func(t *testing.T) {
-		// モックのレスポンスデータ
 		expected := map[string]string{"status": "ok"}
 		respBody, _ := json.Marshal(expected)
 
@@ -122,7 +117,6 @@ func TestRequest(t *testing.T) {
 			BaseURL: "https://connpass.com/api/v2",
 		}
 
-		// スライスとして渡すクエリ
 		query := models.GetEventsQuery{
 			EventID: []int{123},
 			BaseQuery: models.BaseQuery{
@@ -131,28 +125,26 @@ func TestRequest(t *testing.T) {
 			},
 		}
 
-		// モックレスポンス用の構造体
-		var out map[string]string
-		err := c.Request("mock", []models.GetEventsQuery{query}, &out)
+		res, err := connpass.Request[map[string]string](c, "mock", []models.GetEventsQuery{query})
 		if err != nil {
 			t.Fatalf("スライスでのリクエストに失敗しました: %v", err)
 		}
-		if out["status"] != "ok" {
-			t.Errorf("期待されたステータス 'ok' と異なります: %v", out["status"])
+		if res["status"] != "ok" {
+			t.Errorf("期待されたステータス 'ok' と異なります: %v", res["status"])
 		}
 	})
 
-	t.Run("異常系", func(t *testing.T) {
-		// 無効な URL に対するテスト
+	t.Run("異常系（URL パースエラー）", func(t *testing.T) {
 		c := connpass.NewClient("dummy")
-		err := c.Request("::://bad-url", nil, &map[string]string{})
+
+		// 関数形式になった Request を使用
+		_, err := connpass.Request[map[string]string](c, "://bad-url", nil)
 		if err == nil {
 			t.Error("不正なURLに対してエラーが返されることが期待されましたが、nilが返されました")
 		}
 	})
 
 	t.Run("HTTP 400 エラー", func(t *testing.T) {
-		// 400 エラーの場合
 		mockClient := &http.Client{
 			Transport: &mockRoundTripper{
 				roundTripFunc: func(req *http.Request) *http.Response {
@@ -171,15 +163,13 @@ func TestRequest(t *testing.T) {
 			BaseURL: "https://connpass.com/api/v2",
 		}
 
-		var out map[string]string
-		err := c.Request("mock", struct{}{}, &out)
+		_, err := connpass.Request[map[string]string](c, "mock", struct{}{})
 		if err == nil {
 			t.Error("400 エラーに対してエラーが返されることが期待されましたが、nilが返されました")
 		}
 	})
 
 	t.Run("HTTP 500 エラー", func(t *testing.T) {
-		// 500 エラーの場合
 		mockClient := &http.Client{
 			Transport: &mockRoundTripper{
 				roundTripFunc: func(req *http.Request) *http.Response {
@@ -198,15 +188,13 @@ func TestRequest(t *testing.T) {
 			BaseURL: "https://connpass.com/api/v2",
 		}
 
-		var out map[string]string
-		err := c.Request("mock", struct{}{}, &out)
+		_, err := connpass.Request[map[string]string](c, "mock", struct{}{})
 		if err == nil {
 			t.Error("500 エラーに対してエラーが返されることが期待されましたが、nilが返されました")
 		}
 	})
 
 	t.Run("JSON デコードエラー", func(t *testing.T) {
-		// 無効な JSON レスポンスの場合
 		mockClient := &http.Client{
 			Transport: &mockRoundTripper{
 				roundTripFunc: func(req *http.Request) *http.Response {
@@ -225,8 +213,7 @@ func TestRequest(t *testing.T) {
 			BaseURL: "https://connpass.com/api/v2",
 		}
 
-		var out map[string]string
-		err := c.Request("mock", struct{}{}, &out)
+		_, err := connpass.Request[map[string]string](c, "mock", struct{}{})
 		if err == nil {
 			t.Error("無効な JSON レスポンスに対してエラーが返されることが期待されましたが、nilが返されました")
 		}

@@ -33,10 +33,12 @@ func NewClient(apiKey string) *Connpass {
 
 // 指定された Connpass API のエンドポイントに GET リクエストを送り、
 // その JSON レスポンスを指定された型 T にデコードして返却する。
-func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
+func Request[T any](c *Connpass, endpoint string, queryStruct any) (T, error) {
+	var zero T
+
 	reqURL, err := url.Parse(fmt.Sprintf("%s/%s", c.BaseURL, endpoint))
 	if err != nil {
-		return fmt.Errorf("URLのパースに失敗しました: %w", err)
+		return zero, fmt.Errorf("URLのパースに失敗しました: %w", err)
 	}
 
 	// クエリ構造体が指定されている場合、URL パラメータとしてエンコード
@@ -54,7 +56,7 @@ func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 		if v.Kind() == reflect.Struct {
 			values, err := query.Values(v.Interface())
 			if err != nil {
-				return fmt.Errorf("クエリのエンコードに失敗しました: %w", err)
+				return zero, fmt.Errorf("クエリのエンコードに失敗しました: %w", err)
 			}
 			reqURL.RawQuery = values.Encode()
 		}
@@ -62,27 +64,28 @@ func (c *Connpass) Request(endpoint string, queryStruct any, out any) error {
 
 	req, err := http.NewRequest("GET", reqURL.String(), nil)
 	if err != nil {
-		return fmt.Errorf("HTTPリクエストの作成に失敗しました: %w", err)
+		return zero, fmt.Errorf("HTTPリクエストの作成に失敗しました: %w", err)
 	}
 	req.Header.Set("X-API-Key", c.APIKey)
 
 	resp, err := c.Client.Do(req)
 	if err != nil {
-		return fmt.Errorf("APIリクエストに失敗しました: %w", err)
+		return zero, fmt.Errorf("APIリクエストに失敗しました: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 400 && resp.StatusCode < 500 {
-		return fmt.Errorf("APIリクエストに失敗しました: %d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
+		return zero, fmt.Errorf("APIリクエストに失敗しました: %d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
 	}
 
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("予期しないエラーが発生しました: %d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
+		return zero, fmt.Errorf("予期しないエラーが発生しました: %d %s", resp.StatusCode, http.StatusText(resp.StatusCode))
 	}
 
-	if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
-		return fmt.Errorf("JSONデコードに失敗しました: %w", err)
+	var out T
+	if err := json.NewDecoder(resp.Body).Decode(&out); err != nil {
+		return zero, fmt.Errorf("JSONデコードに失敗しました: %w", err)
 	}
 
-	return nil
+	return out, nil
 }
