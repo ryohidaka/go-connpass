@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/ryohidaka/go-connpass/compare/v0.10.0...v0.11.0) (2025-06-04)
+
+
+### Features
+
+* **client:** Request() をジェネリクス関数にした変更 ([5359f26](https://github.com/ryohidaka/go-connpass/commit/5359f268491149bffa09620455ad45c5be2e571b))
+
 ## [0.10.0](https://github.com/ryohidaka/go-connpass/compare/v0.9.0...v0.10.0) (2025-05-15)
 
 
