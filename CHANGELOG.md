@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.0](https://github.com/ryohidaka/go-connpass/compare/v0.11.0...v1.0.0) (2025-08-16)
+
+
+### Miscellaneous Chores
+
+* release 1.0.0 ([05211e0](https://github.com/ryohidaka/go-connpass/commit/05211e09abea3a4c68c24de75a2635cb3006f0b5))
+
 ## [0.11.0](https://github.com/ryohidaka/go-connpass/compare/v0.10.0...v0.11.0) (2025-06-04)
 
 
