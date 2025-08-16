@@ -1,6 +1,7 @@
 package connpass_test
 
 import (
+	_ "embed"
 	"fmt"
 	"os"
 	"testing"
@@ -9,9 +10,11 @@ import (
 	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/models"
-	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+//go:embed __fixtures__/user-events.json
+var userAttendedEventsJSON []byte
 
 func ExampleConnpass_GetUserAttendedEvents() {
 	// APIキーを取得
@@ -55,8 +58,8 @@ func TestGetUserAttendedEvents(t *testing.T) {
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
 		// モックレスポンスを設定
-		err := testutil.MockResponseFromFile(connpass.BaseURL+"/users/haru860/attended_events", "user-events")
-		assert.NoError(t, err)
+		httpmock.RegisterResponder("GET", connpass.BaseURL+"/users/haru860/attended_events",
+			httpmock.NewStringResponder(200, string(userAttendedEventsJSON)))
 
 		// クライアント設定
 		c := connpass.NewClient("dummy-api-key")

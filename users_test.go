@@ -1,6 +1,7 @@
 package connpass_test
 
 import (
+	_ "embed"
 	"fmt"
 	"os"
 	"testing"
@@ -9,9 +10,11 @@ import (
 	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/models"
-	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+//go:embed __fixtures__/users.json
+var usersJSON []byte
 
 func ExampleConnpass_GetUsers() {
 	// APIキーを取得
@@ -56,8 +59,8 @@ func TestGetUsers(t *testing.T) {
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
 		// モックレスポンスを設定
-		err := testutil.MockResponseFromFile(connpass.BaseURL+"/users", "users")
-		assert.NoError(t, err)
+		httpmock.RegisterResponder("GET", connpass.BaseURL+"/users",
+			httpmock.NewStringResponder(200, string(usersJSON)))
 
 		// クライアント設定
 		c := connpass.NewClient("dummy-api-key")

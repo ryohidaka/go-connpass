@@ -1,6 +1,7 @@
 package connpass_test
 
 import (
+	_ "embed"
 	"fmt"
 	"os"
 	"testing"
@@ -9,9 +10,11 @@ import (
 	"github.com/jarcoal/httpmock"
 	"github.com/ryohidaka/go-connpass"
 	"github.com/ryohidaka/go-connpass/models"
-	"github.com/ryohidaka/go-connpass/testutil"
 	"github.com/stretchr/testify/assert"
 )
+
+//go:embed __fixtures__/event-presentations.json
+var eventPresentationsJSON []byte
 
 func ExampleConnpass_GetEventPresentations() {
 	// APIキーを取得
@@ -55,8 +58,8 @@ func TestGetEventPresentations(t *testing.T) {
 	// モックサーバーを作成
 	t.Run("正常系", func(t *testing.T) {
 		// モックレスポンスを設定
-		err := testutil.MockResponseFromFile(connpass.BaseURL+"/events/364/presentations", "event-presentations")
-		assert.NoError(t, err)
+		httpmock.RegisterResponder("GET", connpass.BaseURL+"/events/364/presentations",
+			httpmock.NewStringResponder(200, string(eventPresentationsJSON)))
 
 		// クライアント設定
 		c := connpass.NewClient("dummy-api-key")
