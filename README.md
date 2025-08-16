@@ -33,25 +33,25 @@ func main() {
     c := connpass.NewClient(apiKey)
 
     // イベント一覧を取得
-    events, _ := c.GetEvents()
+    events, err := c.GetEvents()
 
     // イベント資料一覧を取得
-    presentations, _ := c.GetEventPresentations(364)
+    presentations, err := c.GetEventPresentations(364)
 
     // グループ一覧を取得
-    groups, _ := c.GetGroups()
+    groups, err := c.GetGroups()
 
     // ユーザー一覧を取得
-    users, _ := c.GetUsers()
+    users, err := c.GetUsers()
 
     // ユーザー所属グループ一覧を取得
-    userGroups, _ := c.GetUserGroups("haru860")
+    userGroups, err := c.GetUserGroups("haru860")
 
     // ユーザー参加イベント一覧を取得
-    userAttendedEvents, _ := c.GetUserAttendedEvents("haru860")
+    userAttendedEvents, err := c.GetUserAttendedEvents("haru860")
 
     // ユーザー発表イベント一覧を取得
-    userPresenterEvents, _ := c.GetUserPresenterEvents("haru860")
+    userPresenterEvents, err := c.GetUserPresenterEvents("haru860")
 }
 ```
 
